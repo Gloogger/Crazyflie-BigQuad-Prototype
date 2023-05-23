@@ -36,7 +36,10 @@ Items used to assemble the prototype drone is given in the table below.
 
 ### Connection Diagram
 Following the basic connection diagram given in the [BigQuad Product Page](https://www.bitcraze.io/products/bigquad-deck/), the ESCs (Electronic Speed Controllers), the BigQuad deck, and the motors are connected as shown below.
-![Cow2](https://github.com/jmszwzr/test/raw/master/images/sex-cow.png "Cow2")
+
+![basic_connection](https://github.com/Gloogger/Crazyflie-BigQuad-Prototype/raw/main/images/basic_connection.png "basic_connection")
+
+
 
 ### ESC Configuration
 
