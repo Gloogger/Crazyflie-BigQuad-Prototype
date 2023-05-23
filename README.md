@@ -4,5 +4,4 @@ This repository documents the development of a quadcopter expanded from a Crazyf
 ## Table of Contents
 * [Physical Construction](#physical-construction)
 
-
-## [Physical Construction][#physical-construction]
+## Physical Construction
