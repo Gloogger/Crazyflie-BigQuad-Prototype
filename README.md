@@ -4,6 +4,7 @@ This repository documents the development of a prototype quadcopter expanded fro
 ## Table of Contents
 * [Physical Construction](#physical-construction)
   * [Drone Parts](#drone-parts)
+  * [Connection Diagram](#Connection-Diagram)
   * [ESC Configuration](#ESC-Configuration)
 * [Customize Firmware](#Customize-Firmware)
   * [Set up BVM Environment](#Set-up-BVM-Environment)
@@ -17,8 +18,10 @@ This repository documents the development of a prototype quadcopter expanded fro
 * [Test Flight](#Test-Flight)
 
 
+
+
 ## Physical Construction
-blah blah
+This section documents the hardware assembly of the prototype quadcopter as well as the relevant configurations.
 
 ### Drone Parts
 Items used to assemble the prototype drone is given in the table below.
@@ -30,6 +33,10 @@ Items used to assemble the prototype drone is given in the table below.
 | Flight Control  | Crazyflie 2.1 + BigQuad deck                                |
 | Battery         | HobbyLine 4S1P 100C 1500mAh Lipo Battery                    |
 | Propellers      | DJI Phantom Series 9450 Self-Locking Propellers             |
+
+### Connection Diagram
+Following the basic connection diagram given in the [BigQuad Product Page](https://www.bitcraze.io/products/bigquad-deck/), the ESCs (Electronic Speed Controllers), the BigQuad deck, and the motors are connected as shown below.
+![Cow2](https://github.com/jmszwzr/test/raw/master/images/sex-cow.png "Cow2")
 
 ### ESC Configuration
 
