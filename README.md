@@ -44,11 +44,10 @@ The assembled prototype is shown in the Figure below.
 <img src="https://github.com/Gloogger/Crazyflie-BigQuad-Prototype/blob/main/images/assembled_drone.jpg" width="550">
 
 
-### ESC Configuration
-
 
 ## Customize Firmware
-blah blah
+According to [this GitHub discussion thread](https://github.com/orgs/bitcraze/discussions/269) and [this blog](https://www.bitcraze.io/2022/02/a-new-way-to-configure-the-crazyflie-firmware/), all firmware developments after the $2022-02$ release should be performed using {\tt kbuild} build tool, which seems to be only available in a Linux environment. A convenient way to use the {\tt kbuild} is to install the {\tt Bitcraze Virtual Machine} (BVM) environment. All existing documentation on building and flashing firmwares (including all alleged ``latest'' documentations) are  obsolete and deprecated.
+
 
 
 ### Set up BVM Environment
