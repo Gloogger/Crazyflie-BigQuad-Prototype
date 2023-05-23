@@ -11,8 +11,8 @@ This repository documents the development of a prototype quadcopter expanded fro
   * [USB Permissions](#USB-Permissions)
   * [Radio URI](#Radio-URI)
   * [Firmware Modification](#Firmware-Modification)
-   * [BigQuad Driver](#BigQuad-Driver)
-   * [Kbuild & Config](#Kbuild-&-Config)
+    * [BigQuad Driver](#BigQuad-Driver)
+    * [Kbuild & Config](#Kbuild-&-Config)
   * [Flashing Firmware](#Flashing-Firmware)
 * [Test Flight](#Test-Flight)
 
