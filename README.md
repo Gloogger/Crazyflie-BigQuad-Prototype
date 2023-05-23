@@ -3,8 +3,8 @@ This repository documents the development of a prototype quadcopter expanded fro
 
 ## Table of Contents
 * [Physical Construction](#physical-construction)
-..* [Drone Parts](#drone-parts)
-..* [ESC Configuration](#ESC-Configuration)
+.. * [Drone Parts](#drone-parts)
+.. * [ESC Configuration](#ESC-Configuration)
 * [Customize Firmware](#Customize-Firmware)
 ..* [Set up BVM Environment](#Set-up-BVM-Environment)
 
