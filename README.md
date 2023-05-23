@@ -53,8 +53,8 @@ To complete the above tasks, we need to use the `kbuild` tool to build and flash
 
 ### Set up BVM Environment
 1. I followed [this documentation](https://github.com/bitcraze/bitcraze-vm) to install the `Bitcraze Virtual Machine` (BVM). The instructions given in the cited documentation is very detailed and I did not encounter any issues. The only things to note are
-  * Make sure to also install the expansion package as it is required for USB connection.
-  * If after launching the BVM, only a black screen is shown, just try dragging the window as it forces the desktop to update. The normal desktop should then come out.
+ * Make sure to also install the expansion package as it is required for USB connection.
+ * If after launching the BVM, only a black screen is shown, just try dragging the window as it forces the desktop to update. The normal desktop should then come out.
 2. 123
 
 #### Installation
