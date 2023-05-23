@@ -3,17 +3,17 @@ This repository documents the development of a prototype quadcopter expanded fro
 
 ## Table of Contents
 * [Physical Construction](#physical-construction)
- * [Drone Parts](#drone-parts)
- * [ESC Configuration](#ESC-Configuration)
+  * [Drone Parts](#drone-parts)
+  * [ESC Configuration](#ESC-Configuration)
 * [Customize Firmware](#Customize-Firmware)
- * [Set up BVM Environment](#Set-up-BVM-Environment)
- * [Installation](#Installation)
- * [USB Permissions](#USB-Permissions)
- * [Radio URI](#Radio-URI)
- * [Firmware Modification](#Firmware-Modification)
-  * [BigQuad Driver](#BigQuad-Driver)
-  * [Kbuild & Config](#Kbuild-&-Config)
- * [Flashing Firmware](#Flashing-Firmware)
+  * [Set up BVM Environment](#Set-up-BVM-Environment)
+  * [Installation](#Installation)
+  * [USB Permissions](#USB-Permissions)
+  * [Radio URI](#Radio-URI)
+  * [Firmware Modification](#Firmware-Modification)
+   * [BigQuad Driver](#BigQuad-Driver)
+   * [Kbuild & Config](#Kbuild-&-Config)
+  * [Flashing Firmware](#Flashing-Firmware)
 * [Test Flight](#Test-Flight)
 
 
