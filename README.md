@@ -46,8 +46,9 @@ The assembled prototype is shown in the Figure below.
 
 
 ## Customize Firmware
-According to [this GitHub discussion thread](https://github.com/orgs/bitcraze/discussions/269) and [this blog](https://www.bitcraze.io/2022/02/a-new-way-to-configure-the-crazyflie-firmware/), all firmware developments after the $2022-02$ release should be performed using `kbuild` build tool, which seems to be only available in a Linux environment. A convenient way to use the {\tt kbuild} is to install the {\tt Bitcraze Virtual Machine} (BVM) environment. All existing documentation on building and flashing firmwares (including all alleged ``latest'' documentations) are  obsolete and deprecated.
+Since the BigQuad deck is an early access product, we need to modify the Crazyflie firmware so as to enable some features. Firstly, we need to enable the BigQuad deck driver that is not enabled by default, and secondly, we need to modify the `bigquad.c` driver file in order to use the Python API.
 
+To complete the above tasks, we need to use the `kbuild` tool to build and flash the firmware. According to [this GitHub discussion thread](https://github.com/orgs/bitcraze/discussions/269) and [this blog](https://www.bitcraze.io/2022/02/a-new-way-to-configure-the-crazyflie-firmware/), all firmware developments after the $2022-02$ release should be performed using the `kbuild` build tool, which seems to be only available in a Linux environment. A convenient way to use the `kbuild` tool is to install the `Bitcraze Virtual Machine` (BVM) environment. 
 
 
 ### Set up BVM Environment
