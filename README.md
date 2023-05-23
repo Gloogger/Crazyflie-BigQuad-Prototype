@@ -68,8 +68,8 @@ pip3 install qasync~=0.23.0
 sudo apt-get install packer
 ```
 The installation may require user name and password:
-    * User: bitcraze
-    * Pass: crazyflie
+   * User: bitcraze
+   * Pass: crazyflie
 A relevant discussion thread on this issue can be found [here](https://github.com/orgs/bitcraze/discussions/545). 
     
 3. After successful update, we should be able to call out the Python client either by typing `cfclient` in the `Terminal Emulator` app whose icon is on the desktop, or by clicking on the `Crazyflie client` icon which is on the desktop.
