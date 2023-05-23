@@ -39,7 +39,7 @@ Following the basic connection diagram given in the [BigQuad Product Page](https
 
 ![](https://github.com/Gloogger/Crazyflie-BigQuad-Prototype/raw/main/images/basic_connection.png | width=100)
 
-<img src="[https://your-image-url.type](https://github.com/Gloogger/Crazyflie-BigQuad-Prototype/raw/main/images/basic_connection.png)" width="100">
+<img src="https://github.com/Gloogger/Crazyflie-BigQuad-Prototype/raw/main/images/basic_connection.png" width="100">
 
 ### ESC Configuration
 
