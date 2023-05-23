@@ -11,7 +11,7 @@ blah blah
 ### Drone Parts
 Items used to assemble the prototype drone is given in the table below.
 | Category        | Model                                                       | 
-| :-------------: | :--------------------------------------------------------- :| 
+| :-------------: | :---------------------------------------------------------:| 
 | Frame           | DJI F450 4-Axis AirFrame                                    | 
 | Motors          | DJI Phantom 3 2312 Brushless Motors                         |  
 | ESC             | Hobbywing ESC X-Rotor Series H-King 20A 3-4S Lipo (No BEC)  |  
