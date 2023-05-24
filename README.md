@@ -190,47 +190,54 @@ In this section, steps for configuring the firmware using the `kbuild` tool are 
     
 	According to the obsolete [YouTube Workshop from [17:45]](https://youtu.be/xiWLhr-HpG8), the following system parameters may need to be modified in the firmware: 
 	
-	* `ENABLE_BQ_DECK`
+	* **`ENABLE_BQ_DECK`**
 		* *Needed to build BigQuad deck driver.*
-		* This flag is **deprecated** for firmwares later than the 2022-02 version and is now appeared as the `Support the BigQuad deck (NEW)` option in the `kbuild` tool.
+		* This flag is **deprecated** for firmwares later than the 2022-02 version and is now appeared as the `Support the BigQuad deck (NEW)` option in the `kbuild` tool. Follow the steps below to enable this option:
 
-	* `ENABLE_ONESHOT125`
+			1. Open the `terminal` in the directory `/home/bitcraze/Desktop/projects/crazyflie-firmware`. 
+			2. Run `make menuconfig` in the terminal, and then select the `Expansion deck configuration`:
+
+				<img src="https://github.com/Gloogger/Crazyflie-BigQuad-Prototype/blob/main/images/expansion_deck_config.png" width="500">
+
+			3. Use arrow keys to navigate to the `Support the BigQuad deck` option. Press `Y` on the keyboard to enable this feature. If enabled, an asterisk sign will appear. 
+
+				<img src="https://github.com/Gloogger/Crazyflie-BigQuad-Prototype/blob/main/images/Support_BQ.png" width="500">
+
+				As a side note, after you complete this step, two more BigQuad-related options will appear on this page, namely, `Enable BigQuad deck PM` and `Enable BigQuad deck OSD`. The option `Enable BigQuad deck PM` enables `Power Management` so that the battery and current measurements can be read on the `MON` port. This **cannot** be used together with flow deck as it also uses those pins.} For my current project, I do not need to enable this option here. The other option, `Enable BigQuad deck OSD`, enables the OSD (On Screen Display) information to be sent to an OSD addon board over UART. For my current project, I do not need to enable this option here.
+
+
+	* **`ENABLE_ONESHOT125`**
 		* *The standard motor signal protocol is PWM at 400Hz. Set this to get a newer one-shot protocol with less latency. Supported by most ESCs.*
         * This flag is **deprecated** for firmwares later than the 2022-02 version and is now appeared as the `ESC protocol (OneShot125)` option in the `kbuild` tool. Enabling this option will make the system update at a faster rate and give a PWM output from the BigQuad pins at 2000Hz. **However**, because the Hobbywing ESC I am using only accepts 400Hz PWM, I did not enable this option.
-	* `START_DISARMED`
+        * Because I do want to switch to D-Shot in the future, the steps for modifying this parameter are documented below:
+        	1. Navigate to the outermost menu and select the `Motor configuration`.
+
+				<img src="https://github.com/Gloogger/Crazyflie-BigQuad-Prototype/blob/main/images/motor_configuration.png" width="500">
+
+    		2. As shown below, both the parameters `ESC protocol` and the `disarmed state` can be changed.
+
+				<img src="https://github.com/Gloogger/Crazyflie-BigQuad-Prototype/blob/main/images/esc_disarmed.png" width="500">
+
+    			**However**, as mentioned earlier, enabling the option `Set disarmed state after boot`, which corresponds to the obsolete `START_DISARMED` flag, does not seem to work. 
+
+	* **`START_DISARMED`**
 		* *Parameter `system.forceArm` must be 1 to enable flight*.
         * This parameter can be found and changed either in the `cfclient` with the following steps: `cfclient --> Tab:Parameters --> system--> forceArm`; or using the `set_value` function in the Python API as
 			```
 			self.cf.param.set_value('system.forceArm', 1)
 			```
-        There is a `Set disarmed state after boot` option in the `kbuild` tool. **However**, changing this option does not seem to work. 
+        	There is a `Set disarmed state after boot` option in the `kbuild` tool. **However**, changing this option does not seem to work. 
         
-        \item {\color{red}{\tt DEFAULT\_IDLE\_THRUST}}
-        \begin{itemize}
-            \item To prevent brushless motors from stopping unwantedly (since it takes time for a brushless motor to start spinning), the parameter {\color{red}{\tt DEFAULT\_IDLE\_THRUST}} needs to be set to a non-zero value. This value is found to be around $12000$ (or above $47$\% duty cycle) for our ESCs. 
-            \item This parameter is deprecated and I also didn't find it in the kbuild tool, but this quantity can be modified in the \path{cfclient --> Tab:Parameters --> PowerDistribution --> IDLE_THRUST} or using the Python API as\\
-            \mcode{self.cf.param.set_value('powerDist.idleThrust', 1)}.
-        \end{itemize}
-    \end{enumerate}
-    
-    \clearpage
-    
-    \item [3.A.i.] Let's change the flag {\color{red}{\tt ENABLE\_BQ\_DECK}} first. After we run {\color{red}{\tt make menuconfig}}, select the {\color{red}{\tt Expansion deck configuration}}:
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.6\linewidth]{images/expansion_deck_config.png}
-    \end{figure}
+	* **`DEFAULT_IDLE_THRUST`**
+		* *Brushless motors should not stop unwantedly as they take time to start. Set this so they spin slowly when armed, 5000-7000 is usually good.*
+        * For the ESCs I am using, the 0% throttle datum (the max +ve duty cycle of the control PWM signal that does not cause the motor to spin) is found to be around +47% duty cycle, or equivalently, around 13000 in the thrust parameter. 
+        * This parameter can be modified in the `cfclient` following the steps `cfclient --> Tab:Parameters --> PowerDistribution --> IDLE_THRUST` or using the `set_value()` Python API as shown below
+			```
+			self.cf.param.set_value('powerDist.idleThrust', 13000)
+			```
 
-    \item [3.A.ii.] Use arrow keys to navigate to the {\color{red}{\tt Support the BigQuad deck}} option. Press ``Y'' on the keyboard to enable this feature. If enabled, an asterisk sign will appear. 
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.6\linewidth]{images/Support_BQ.png}
-    \end{figure}
-    As a side note, after you complete this step, two more BigQuad-related options will appear on this page, namely, {\color{red}{\tt Enable BigQuad deck PM}} and {\color{red}{\tt Enable BigQuad deck OSD}}. 
-    \begin{itemize}
-        \item The option {\color{red}{\tt Enable BigQuad deck PM}} enables ``Power Management'' so that the battery and current measurements can be read on the {\tt MON} port. \textbf{This can not be used together with flow deck as it uses those pins.} We do not need to enable this option here.
-        \item The option {\color{red}{\tt Enable BigQuad deck OSD}} enables the OSD (On Screen Display) info to be sent to an OSD addon board over UART. We do not need to enable this option here.
-    \end{itemize}
+
+    
 
     \item [3.B.i.] For this project, we do not need to switch to {\tt \color{red}ONESHOT125}. We should stick to the standard 400 Hz PWM protocol. \\
     Just in case if we need to change this parameter later, let's take a detour to see how the PWM protocol can be changed. Navigate to the outermost menu and select the {\color{red}{\tt Motor configuration}}.
