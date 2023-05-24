@@ -189,28 +189,21 @@ In this section, steps for configuring the firmware using the `kbuild` tool are 
 	<img src="https://github.com/Gloogger/Crazyflie-BigQuad-Prototype/blob/main/images/expansion_deck_config.png" width="500">
     
 	According to the obsolete [YouTube Workshop from [17:45]](https://youtu.be/xiWLhr-HpG8), the following system parameters may need to be modified in the firmware: 
-    \begin{enumerate}[(A)]
-        \item {\color{red}{\tt ENABLE\_BQ\_DECK}}
-        \begin{itemize}
-            \item Needed to build BigQuad deck driver. 
-            \item This flag is deprecated since the 2021-02 version and is now appeared as the {\color{red}{\tt Support the BigQuad deck (NEW)}} option in the {\tt kbuild} tool.
-            \item Step-by-step guide provided on next page.
-        \end{itemize}
-        
-        \item {\color{red}{\tt ENABLE\_ONESHOT125}}
-        \begin{itemize}
-            \item {\tt OneShot125} is a ESC protocol faster (PWM freqneucy = $2000$Hz) than the standard PWM protocol ($400$Hz).
-            \item This flag is deprecated and is now appeared as the {\color{red}{\tt ESC protocol (OneShot125)}} option in the {\tt kbuild} tool. Enabling this option will make the system update at a faster rate and give a PWM output from the BigQuad pins at $2000$Hz.
-            \item I did not enable this option as the ESCs we have accepts $400$Hz PWM.
-        \end{itemize}
-        
-        \item {\color{red}{\tt START\_DISARMED}}
-        \begin{itemize}
-            \item Needed to send thrust command to the drone.
-            \item This flag is deprecated and is now appeared as {\color{red}{\tt Set disarmed state after boot}} option in the {\tt kbuild} tool. However, enabling this option does not seem to work. An equivalent way to arm the motors. \\
-            An equivalent and working solution is to modified the {\tt \color{red}forceArm} parameter either in the GUI cfclient, \path{cfclient --> Tab:Parameters --> system--> forceArm}, or in the Python API as \\
-            \mcode{self.cf.param.set_value('system.forceArm', 1)}.
-        \end{itemize}
+	
+	* `ENABLE_BQ_DECK`
+		* *Needed to build BigQuad deck driver.*
+		* This flag is **deprecated** for firmwares later than the 2022-02 version and is now appeared as the `Support the BigQuad deck (NEW)` option in the `kbuild` tool.
+
+	* `ENABLE_ONESHOT125`
+		* *The standard motor signal protocol is PWM at 400Hz. Set this to get a newer one-shot protocol with less latency. Supported by most ESCs.*
+        * This flag is **deprecated** for firmwares later than the 2022-02 version and is now appeared as the `ESC protocol (OneShot125)` option in the `kbuild` tool. Enabling this option will make the system update at a faster rate and give a PWM output from the BigQuad pins at 2000Hz. **However**, because the Hobbywing ESC I am using only accepts 400Hz PWM, I did not enable this option.
+	* `START_DISARMED`
+		* *Parameter `system.forceArm` must be 1 to enable flight*.
+        * This parameter can be found and changed either in the `cfclient` with the following steps: `cfclient --> Tab:Parameters --> system--> forceArm`; or using the `set_value` function in the Python API as
+			```
+			self.cf.param.set_value('system.forceArm', 1)
+			```
+        There is a `Set disarmed state after boot` option in the `kbuild` tool. **However**, changing this option does not seem to work. 
         
         \item {\color{red}{\tt DEFAULT\_IDLE\_THRUST}}
         \begin{itemize}
