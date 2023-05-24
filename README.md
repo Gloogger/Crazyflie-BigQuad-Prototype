@@ -52,6 +52,8 @@ To complete the above tasks, we need to use the `kbuild` tool to build and flash
 
 
 ### Set up BVM Environment
+
+#### Installation
 1. I followed [this documentation](https://github.com/bitcraze/bitcraze-vm) to install the `Bitcraze Virtual Machine` (BVM). The instructions given in the cited documentation is very detailed and I did not encounter any issues. The only things to note are
    * Make sure to also install the expansion package as it is required for USB connection.
    * If after launching the BVM, only a black screen is shown, just try dragging the window as it forces the desktop to update. The normal desktop should then come out.
@@ -81,11 +83,53 @@ To complete the above tasks, we need to use the `kbuild` tool to build and flash
 	<img src="https://github.com/Gloogger/Crazyflie-BigQuad-Prototype/blob/main/images/cfclient_in_BVM.png" width="450">
 
 
-
-#### Installation
-blah blah
-
 #### USB Permissions
+To connect to the Crazyflie, we need to know its radio URI. The easiest way to determine the radio URI now (see [this thread](https://github.com/orgs/bitcraze/discussions/660) for detail) is connecting the drone to the PC with a micro USB cable and then use the `scan` button in the Python client. To be able to do so, we need to modify the USB permission rules in the `BVM` with the following steps:
+
+1. In BVM, open the {\tt Terminal Emulator} app;
+2. Type the following commands in the terminal:
+
+	```
+	sudo groupadd plugdev
+	sudo usermod -a -G plugdev $bitcraze
+	```
+3. Reboot BVM;
+4. Click on the `Home` icon on the desktop;
+
+	<img src="https://github.com/Gloogger/Crazyflie-BigQuad-Prototype/blob/main/images/update_udev_rules_1.png" width="200">
+
+5. Navigate to this path: `~\etc\udev\rules.d\`. Then, right-click on the `99-crazyradios.rules` file and in the drop down menu select `Open Terminal Here`. In the new terminal window, type the following command to delete the `99-crazyradios.rules` file:
+	```
+	sudo rm -rf 99-crazyradios.rules
+	```
+	Next, open the files `99-crazyflie.rules` by double-clicking on its icon. 
+
+	<img src="https://github.com/Gloogger/Crazyflie-BigQuad-Prototype/blob/main/images/update_udev_rules_2.png" width="200">
+
+6. In the `.rules` file, clear any existing content and then paste the following lines:
+
+	```
+	cat <<EOF | sudo tee /etc/udev/rules.d/99-bitcraze.rules > /dev/null
+	# Crazyradio (normal operation)
+	SUBSYSTEM=="usb", ATTRS{idVendor}=="1915", ATTRS{idProduct}=="7777", MODE="0664", GROUP="plugdev"
+	# Bootloader
+	SUBSYSTEM=="usb", ATTRS{idVendor}=="1915", ATTRS{idProduct}=="0101", MODE="0664", GROUP="plugdev"
+	# Crazyflie (over USB)
+	SUBSYSTEM=="usb", ATTRS{idVendor}=="0483", ATTRS{idProduct}=="5740", MODE="0664", GROUP="plugdev"
+	EOF
+	```
+
+    Save the file. 
+
+7. Reload the `udev-rules` by typing the following commands in the terminal:
+
+	```
+	sudo udevadm control --reload-rules
+	sudo udevadm trigger
+	```
+
+8. Reboot the BVM. Done.
+
 
 #### Radio URI
 
