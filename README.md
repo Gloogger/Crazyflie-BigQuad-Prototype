@@ -174,6 +174,107 @@ To comment out `extRxInit()`, follow the steps below:
 
 
 #### Kbuild & Config
+In this section, steps for configuring the firmware using the `kbuild` tool are noted below.
+1. To use `kbuild`, install the below dependency in BVM by typing the following command in the terminal
+	```
+	sudo apt install build-essential libncurses5-dev
+	```
+
+2. Open `Home`, then navigate to the path `/home/bitcraze/Desktop/projects`. In this directory, right-click on the `crazyflie-firmware` folder and choose `Open Termnial Here`.
+
+	<img src="https://github.com/Gloogger/Crazyflie-BigQuad-Prototype/blob/main/images/crazyflie_firmware_location.png" width="500">
+
+3. In the new terminal, run `make menuconfig`. This should opens up a new window that looks like this:
+
+	<img src="https://github.com/Gloogger/Crazyflie-BigQuad-Prototype/blob/main/images/expansion_deck_config.png" width="500">
+    
+	According to the obsolete [YouTube Workshop from [17:45]](https://youtu.be/xiWLhr-HpG8), the following system parameters may need to be modified in the firmware: 
+    \begin{enumerate}[(A)]
+        \item {\color{red}{\tt ENABLE\_BQ\_DECK}}
+        \begin{itemize}
+            \item Needed to build BigQuad deck driver. 
+            \item This flag is deprecated since the 2021-02 version and is now appeared as the {\color{red}{\tt Support the BigQuad deck (NEW)}} option in the {\tt kbuild} tool.
+            \item Step-by-step guide provided on next page.
+        \end{itemize}
+        
+        \item {\color{red}{\tt ENABLE\_ONESHOT125}}
+        \begin{itemize}
+            \item {\tt OneShot125} is a ESC protocol faster (PWM freqneucy = $2000$Hz) than the standard PWM protocol ($400$Hz).
+            \item This flag is deprecated and is now appeared as the {\color{red}{\tt ESC protocol (OneShot125)}} option in the {\tt kbuild} tool. Enabling this option will make the system update at a faster rate and give a PWM output from the BigQuad pins at $2000$Hz.
+            \item I did not enable this option as the ESCs we have accepts $400$Hz PWM.
+        \end{itemize}
+        
+        \item {\color{red}{\tt START\_DISARMED}}
+        \begin{itemize}
+            \item Needed to send thrust command to the drone.
+            \item This flag is deprecated and is now appeared as {\color{red}{\tt Set disarmed state after boot}} option in the {\tt kbuild} tool. However, enabling this option does not seem to work. An equivalent way to arm the motors. \\
+            An equivalent and working solution is to modified the {\tt \color{red}forceArm} parameter either in the GUI cfclient, \path{cfclient --> Tab:Parameters --> system--> forceArm}, or in the Python API as \\
+            \mcode{self.cf.param.set_value('system.forceArm', 1)}.
+        \end{itemize}
+        
+        \item {\color{red}{\tt DEFAULT\_IDLE\_THRUST}}
+        \begin{itemize}
+            \item To prevent brushless motors from stopping unwantedly (since it takes time for a brushless motor to start spinning), the parameter {\color{red}{\tt DEFAULT\_IDLE\_THRUST}} needs to be set to a non-zero value. This value is found to be around $12000$ (or above $47$\% duty cycle) for our ESCs. 
+            \item This parameter is deprecated and I also didn't find it in the kbuild tool, but this quantity can be modified in the \path{cfclient --> Tab:Parameters --> PowerDistribution --> IDLE_THRUST} or using the Python API as\\
+            \mcode{self.cf.param.set_value('powerDist.idleThrust', 1)}.
+        \end{itemize}
+    \end{enumerate}
+    
+    \clearpage
+    
+    \item [3.A.i.] Let's change the flag {\color{red}{\tt ENABLE\_BQ\_DECK}} first. After we run {\color{red}{\tt make menuconfig}}, select the {\color{red}{\tt Expansion deck configuration}}:
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\linewidth]{images/expansion_deck_config.png}
+    \end{figure}
+
+    \item [3.A.ii.] Use arrow keys to navigate to the {\color{red}{\tt Support the BigQuad deck}} option. Press ``Y'' on the keyboard to enable this feature. If enabled, an asterisk sign will appear. 
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\linewidth]{images/Support_BQ.png}
+    \end{figure}
+    As a side note, after you complete this step, two more BigQuad-related options will appear on this page, namely, {\color{red}{\tt Enable BigQuad deck PM}} and {\color{red}{\tt Enable BigQuad deck OSD}}. 
+    \begin{itemize}
+        \item The option {\color{red}{\tt Enable BigQuad deck PM}} enables ``Power Management'' so that the battery and current measurements can be read on the {\tt MON} port. \textbf{This can not be used together with flow deck as it uses those pins.} We do not need to enable this option here.
+        \item The option {\color{red}{\tt Enable BigQuad deck OSD}} enables the OSD (On Screen Display) info to be sent to an OSD addon board over UART. We do not need to enable this option here.
+    \end{itemize}
+
+    \item [3.B.i.] For this project, we do not need to switch to {\tt \color{red}ONESHOT125}. We should stick to the standard 400 Hz PWM protocol. \\
+    Just in case if we need to change this parameter later, let's take a detour to see how the PWM protocol can be changed. Navigate to the outermost menu and select the {\color{red}{\tt Motor configuration}}.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.8\linewidth]{images/motor_configuration.png}
+    \end{figure}
+    
+    \item [3.B.ii.] As shown below, both the parameters {\tt \color{red}ESC protocol} and the {\tt \color{red} disarmed state} can be changed here.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.6\linewidth]{images/esc_disarmed.png}
+    \end{figure}
+    \textbf{However,}, the option {\color{red}{\tt Set disarmed state after boot}}, which corresponds to the {\color{red}{\tt START\_DISARMED}} flag in the deprecated version, does not seem to work. 
+
+    \item Navigate to the outermost menu and choose {\color{red}{\tt Save}}. After successful saving, exit.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1.0\linewidth]{images/config_save.png}
+    \end{figure}
+    \textbf{\ul{DO NOT} change the default name.}
+
+    \item While still in the directory \path{~/projects/crazyflie-firmware$}, in the terminal run {\color{red}{\tt make clean}} and {\color{red}{\tt make -j8}}, sequentially.
+
+    \item Now let's prepare the drone. First, turn off the Crazyflie.
+    
+    \item Change the state of the Crazyflie to {\tt bootloader} mode by pressing the power button for \st{3 seconds} at least 1.5 seconds but not more than 5 seconds\footnote{This change is mentioned on the \href{https://www.bitcraze.io/documentation/repository/crazyflie-clients-python/master/functional-areas/cfloader/}{main Bitcraze page} but not on the \href{https://github.com/bitcraze/crazyflie-firmware/blob/master/docs/building-and-flashing/build.md}{GitHub documentation}.}. If successful, both of the blue LEDs on board should blink;
+    
+    \item Now go back to the PC. While still in the directory \\
+    \path{~/projects/crazyflie-firmware$}, in the terminal run {\color{red}{\tt make cload}} to flash the modified firmware. Make sure the BVM has access to the Crazyradio PA.
+
+    \item If the modified firmware is successfully flashed, the console in the Python client should display that the BigQuad deck is detected. Further, after turning on, the motors should not spin at all while the drone is passing the self-test. See below if the console tab is not visible in the client:
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1.0\linewidth]{images/console_BQ.png}
+    \end{figure}
+\end{enumerate}
 
 ### Flashing Firmware
 
