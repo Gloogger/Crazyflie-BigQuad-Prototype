@@ -56,17 +56,21 @@ To complete the above tasks, we need to use the `kbuild` tool to build and flash
    * Make sure to also install the expansion package as it is required for USB connection.
    * If after launching the BVM, only a black screen is shown, just try dragging the window as it forces the desktop to update. The normal desktop should then come out.
 2. Click on the `Update all projects` script on the desktop in BVM to update everything. It is very likely that you would get this error,
-```
-Preparing wheel metadata ... error
-```
-   This error is caused by the fact that VirtualBox no longer comes with the latest release of `pip3`. Use the following commands to update the dependencies (install one at each time and run the `Update all projects` script to see if the issue is resolved):
-```
-pip3 install --upgrade pip
-sudo apt update
-pip3 install PyQt5 // only 0.23.0 version or compatible version works with cfclient
-pip3 install qasync~=0.23.0
-sudo apt-get install packer
-```
+
+	```
+	Preparing wheel metadata ... error
+	```
+	
+	or something similar. As seen in [this discussion thread](https://github.com/orgs/bitcraze/discussions/545), the above error is caused by the fact that VirtualBox no longer comes with the latest release of `pip3`. Use the following commands to update the dependencies (install one at each time and run the `Update all projects` script to see if the issue is resolved):
+
+	```
+	pip3 install --upgrade pip
+	sudo apt update
+	pip3 install PyQt5 // only 0.23.0 version or compatible version works with cfclient
+	pip3 install qasync~=0.23.0
+	sudo apt-get install packer
+	```
+
    The installation may require user name and password:
    * User: bitcraze
    * Pass: crazyflie
@@ -74,7 +78,7 @@ sudo apt-get install packer
     
 3. After successful update, we should be able to call out the Python client either by typing `cfclient` in the `Terminal Emulator` app whose icon is on the desktop, or by clicking on the `Crazyflie client` icon which is on the desktop.
 
-<img src="https://github.com/Gloogger/Crazyflie-BigQuad-Prototype/blob/main/images/cfclient_in_BVM.png" width="450">
+	<img src="https://github.com/Gloogger/Crazyflie-BigQuad-Prototype/blob/main/images/cfclient_in_BVM.png" width="450">
 
 
 
