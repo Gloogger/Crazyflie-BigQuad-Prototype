@@ -104,7 +104,7 @@ To connect to the Crazyflie, we need to know its radio URI. The easiest way to d
 	```
 	Next, open the files `99-crazyflie.rules` by double-clicking on its icon. 
 
-	<img src="https://github.com/Gloogger/Crazyflie-BigQuad-Prototype/blob/main/images/update_udev_rules_2.png" width="200">
+	<img src="https://github.com/Gloogger/Crazyflie-BigQuad-Prototype/blob/main/images/update_udev_rules_2.png" width="500">
 
 6. In the `.rules` file, clear any existing content and then paste the following lines:
 
@@ -154,6 +154,24 @@ We do not need to know the radio URI of the Crazyflie to flash the firmware. How
 ### Firmware Modification
 
 #### BigQuad Driver
+To send control setpoints with the commander framework (e.g. `send_setpoint()`) in the Python API, we need to comment out the default setpoint reader function, {\tt extRxInit()}, in the {\tt BigQuad} driver. `extRxInit()` is a function that loads an external setpoint reader with a higher priority that overrides whatever control setpoints the Python AIP has assigned (see [this thread](https://forum.bitcraze.io/viewtopic.php?t=3931) for detail). 
+
+To comment out `extRxInit()`, follow the steps below:
+1. In the BVM, navigate to the `bigquad.c` file located at `Desktop/projects/crazyflie-firmware/src/deck/drivers/src/bigquad.c`.
+
+3. Comment out line 85 (as in the 2023-02 release) which has the `extRxInit()` code. Because the `bigquad.c` file receives  update from time to time, lines 83-88 are provided below to give context.
+	```
+	DEBUG_PRINT("Switching to brushless.\n");
+	motorsInit(motorMapBigQuadDeck);
+	extRxInit(); // <- comment out this line
+
+	// Ignore charging/charged state to allow low-battery warning.
+	pmIgnoreChargedState(true);
+	```
+
+4. Save the file. Done!
+
+
 
 #### Kbuild & Config
 
