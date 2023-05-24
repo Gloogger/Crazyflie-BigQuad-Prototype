@@ -59,7 +59,7 @@ To complete the above tasks, we need to use the `kbuild` tool to build and flash
 ```
 Preparing wheel metadata ... error
 ```
-This error is caused by the fact that VirtualBox no longer comes with the latest release of `pip3`. Use the following commands to update the dependencies (install one at each time and run the `Update all projects` script to see if the issue is resolved):
+   This error is caused by the fact that VirtualBox no longer comes with the latest release of `pip3`. Use the following commands to update the dependencies (install one at each time and run the `Update all projects` script to see if the issue is resolved):
 ```
 pip3 install --upgrade pip
 sudo apt update
@@ -67,7 +67,7 @@ pip3 install PyQt5 // only 0.23.0 version or compatible version works with cfcli
 pip3 install qasync~=0.23.0
 sudo apt-get install packer
 ```
-The installation may require user name and password:
+   The installation may require user name and password:
    * User: bitcraze
    * Pass: crazyflie
  
