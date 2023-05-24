@@ -236,11 +236,12 @@ In this section, steps for configuring the firmware using the `kbuild` tool are 
 			self.cf.param.set_value('powerDist.idleThrust', 13000)
 			```
 
-4. After all parameters are modified, navigate to the outermost menu and choose `Save`. After successful saving, exit.
+### Flashing Firmware
+1. After all parameters are modified, navigate to the outermost menu and choose `Save`. After successful saving, exit.
 
 	<img src="https://github.com/Gloogger/Crazyflie-BigQuad-Prototype/blob/main/images/config_save.png" width="500">
 
-5. While still in the directory `~/projects/crazyflie-firmware$`, run
+2. While still in the directory `~/projects/crazyflie-firmware$`, run
 
 	```
 	make clean
@@ -254,24 +255,25 @@ In this section, steps for configuring the firmware using the `kbuild` tool are 
 
 	sequentially, in the terminal.
 
-6. Now change the Crazyflie to `bootloader` mode. To do so, first turn off the Crazyflie.
+3. Now change the Crazyflie to `bootloader` mode. To do so, first turn off the Crazyflie.
     
-7. Press the power button on the Crazyflie for at least `1.5 seconds` but not more than `5 seconds` (see [this documentation](https://www.bitcraze.io/documentation/repository/crazyflie-clients-python/master/functional-areas/cfloader/) for detail). If successful, both of the blue LEDs on board should blink.
+4. Press the power button on the Crazyflie for at least `1.5 seconds` but not more than `5 seconds` (see [this documentation](https://www.bitcraze.io/documentation/repository/crazyflie-clients-python/master/functional-areas/cfloader/) for detail). If successful, both of the blue LEDs on board should blink.
     
-8. Now go back to the BVM. Make sure the BVM has access to the Crazyradio PA before proceeding further. While still in the directory `~/projects/crazyflie-firmware$`, run 
+5. Now go back to the BVM. Make sure the BVM has access to the Crazyradio PA before proceeding further. While still in the directory `~/projects/crazyflie-firmware$`, run 
 	```
 	make cload
 	``` 
 	in the terminal to flash the modified firmware.
 
-    \item If the modified firmware is successfully flashed, the console in the Python client should display that the BigQuad deck is detected. Further, after turning on, the motors should not spin at all while the drone is passing the self-test. See below if the console tab is not visible in the client:
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=1.0\linewidth]{images/console_BQ.png}
-    \end{figure}
-\end{enumerate}
+6. If the modified firmware is successfully flashed, the console in the Python client should display that the BigQuad deck is detected, as shown below. 
 
-### Flashing Firmware
+	<img src="https://github.com/Gloogger/Crazyflie-BigQuad-Prototype/blob/main/images/console_BQ.png" width="900">
+
+	Further, if the modified firmware is successfully flashed, all four motors should not spin while the Crazyflie (with BigQuad deck mounted) is passing the self-test. 
+
+
+
+
 
 ## Test Flight
 
