@@ -132,30 +132,24 @@ To connect to the Crazyflie, we need to know its radio URI. The easiest way to d
 
 
 #### Radio URI
-We do not need to know the radio URI of the Crazyflie To determine the radio URI, follow these steps:
-\begin{enumerate}
-    \item Connect the Crazyflie to the PC using a micro USB cable.
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.4\linewidth]{images/usb_connected_drone.png}
-    \end{figure}
+We do not need to know the radio URI of the Crazyflie to flash the firmware. However, for the completeness of this documentation, the steps for determining the radio URI are noted below.
+1. Connect the Crazyflie to the PC using a micro USB cable.
 
-    \item Open the {\tt cfclient}. Then look to the bottom right corner of the BVM, click on the highlighted icon, and choose {\color{red}{\tt Bitcraze AB Crazyflie 2.X [0200]}}. This allows the BVM to see the cabled drone.
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.8\linewidth]{images/usb_vm.png}
-    \end{figure}
-    \textbf{N.B. We have to open the {\tt cfclient} first, otherwise the USB device cannot be loaded in the BVM.}
+	<img src="https://github.com/Gloogger/Crazyflie-BigQuad-Prototype/blob/main/images/usb_connected_drone.png" width="200">
 
-    \item In the {\tt cfclient}, click on the {\color{red}{\tt Scan}} button. At this stage, the {\color{amber}{\tt Address}} does not need to be the actual URI. \\
-    After scanning, the {\color{ForestGreen}{\tt Select an interface}} should display {\color{ForestGreen}{\tt usb://0}}, meaning that the Python client has found the cabled drone. Now click on the {\color{red}{\tt Connect}} button.\\
-    After connected, go to the {\color{red}{\tt Connect}} option in the top panel, then in the drop down menu, choose {\color{red}{\tt Configure 2.X}}.\\
-    In the popped-up window, the current {\color{ForestGreen}{\tt Radio Address}} of the cabled drone is displayed. We can also overwrite that address by changing that field, and then click on the {\color{red}{\tt Write}} button.
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=1.0\linewidth]{images/radio_uri.png}
-    \end{figure}
-\end{enumerate}
+2. Open the `cfclient`. Then look to the bottom right corner of the BVM, click on the highlighted icon, and choose `Bitcraze AB Crazyflie 2.X [0200]`. This allows the BVM to see the cabled drone.
+
+	<img src="https://github.com/Gloogger/Crazyflie-BigQuad-Prototype/blob/main/images/usb_vm.png" width="550">
+
+3. In the `cfclient`, click on the `Scan` button. At this stage, the `Address` does not need to be the actual URI. After scanning, the `Select an interface` should display `usb://0`, meaning that the Python client has found the cabled drone. Now click on the `Connect` button.
+
+	After connected, go to the `Connect` option in the top panel, then in the drop down menu, choose `Configure 2.X`.
+	
+    In the popped-up window, the current `Radio Address` of the cabled drone is displayed. We can also overwrite that address by changing that field, and then click on the `Write` button. 
+	
+	<img src="https://github.com/Gloogger/Crazyflie-BigQuad-Prototype/blob/main/images/radio_uri.png" width="700">
+
+
 
 ### Firmware Modification
 
