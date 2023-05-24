@@ -236,38 +236,33 @@ In this section, steps for configuring the firmware using the `kbuild` tool are 
 			self.cf.param.set_value('powerDist.idleThrust', 13000)
 			```
 
+4. After all parameters are modified, navigate to the outermost menu and choose `Save`. After successful saving, exit.
 
+	<img src="https://github.com/Gloogger/Crazyflie-BigQuad-Prototype/blob/main/images/config_save.png" width="500">
+
+5. While still in the directory `~/projects/crazyflie-firmware$`, run
+
+	```
+	make clean
+	```
+
+	and
+
+	```
+	make -j8
+	```
+
+	sequentially, in the terminal.
+
+6. Now change the Crazyflie to `bootloader` mode. To do so, first turn off the Crazyflie.
     
-
-    \item [3.B.i.] For this project, we do not need to switch to {\tt \color{red}ONESHOT125}. We should stick to the standard 400 Hz PWM protocol. \\
-    Just in case if we need to change this parameter later, let's take a detour to see how the PWM protocol can be changed. Navigate to the outermost menu and select the {\color{red}{\tt Motor configuration}}.
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.8\linewidth]{images/motor_configuration.png}
-    \end{figure}
+7. Press the power button on the Crazyflie for at least `1.5 seconds` but not more than `5 seconds` (see [this documentation](https://www.bitcraze.io/documentation/repository/crazyflie-clients-python/master/functional-areas/cfloader/) for detail). If successful, both of the blue LEDs on board should blink.
     
-    \item [3.B.ii.] As shown below, both the parameters {\tt \color{red}ESC protocol} and the {\tt \color{red} disarmed state} can be changed here.
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=0.6\linewidth]{images/esc_disarmed.png}
-    \end{figure}
-    \textbf{However,}, the option {\color{red}{\tt Set disarmed state after boot}}, which corresponds to the {\color{red}{\tt START\_DISARMED}} flag in the deprecated version, does not seem to work. 
-
-    \item Navigate to the outermost menu and choose {\color{red}{\tt Save}}. After successful saving, exit.
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=1.0\linewidth]{images/config_save.png}
-    \end{figure}
-    \textbf{\ul{DO NOT} change the default name.}
-
-    \item While still in the directory \path{~/projects/crazyflie-firmware$}, in the terminal run {\color{red}{\tt make clean}} and {\color{red}{\tt make -j8}}, sequentially.
-
-    \item Now let's prepare the drone. First, turn off the Crazyflie.
-    
-    \item Change the state of the Crazyflie to {\tt bootloader} mode by pressing the power button for \st{3 seconds} at least 1.5 seconds but not more than 5 seconds\footnote{This change is mentioned on the \href{https://www.bitcraze.io/documentation/repository/crazyflie-clients-python/master/functional-areas/cfloader/}{main Bitcraze page} but not on the \href{https://github.com/bitcraze/crazyflie-firmware/blob/master/docs/building-and-flashing/build.md}{GitHub documentation}.}. If successful, both of the blue LEDs on board should blink;
-    
-    \item Now go back to the PC. While still in the directory \\
-    \path{~/projects/crazyflie-firmware$}, in the terminal run {\color{red}{\tt make cload}} to flash the modified firmware. Make sure the BVM has access to the Crazyradio PA.
+8. Now go back to the BVM. Make sure the BVM has access to the Crazyradio PA before proceeding further. While still in the directory `~/projects/crazyflie-firmware$`, run 
+	```
+	make cload
+	``` 
+	in the terminal to flash the modified firmware.
 
     \item If the modified firmware is successfully flashed, the console in the Python client should display that the BigQuad deck is detected. Further, after turning on, the motors should not spin at all while the drone is passing the self-test. See below if the console tab is not visible in the client:
     \begin{figure}[H]
