@@ -13,7 +13,7 @@ This repository documents the development of a prototype quadcopter expanded fro
 	* [Radio URI](#Radio-URI)
 	* [Firmware Modification](#Firmware-Modification)
 		* [BigQuad Driver](#BigQuad-Driver)
-		* [Kbuild & Config](#Kbuild-&-Config)
+		* [Kbuild and Config](#Kbuild-and-Config)
 	* [Flashing Firmware](#Flashing-Firmware)
 * [ESC Configuration](#ESC-Configuration)
 * [Test Flight](#Test-Flight)
@@ -173,7 +173,7 @@ To comment out `extRxInit()`, follow the steps below:
 
 
 
-#### Kbuild & Config
+#### Kbuild and Config
 In this section, steps for configuring the firmware using the `kbuild` tool are noted below.
 1. To use `kbuild`, install the below dependency in BVM by typing the following command in the terminal
 	```
