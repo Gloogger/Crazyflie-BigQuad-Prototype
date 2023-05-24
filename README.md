@@ -3,18 +3,19 @@ This repository documents the development of a prototype quadcopter expanded fro
 
 ## Table of Contents
 * [Physical Construction](#physical-construction)
-  * [Drone Parts](#drone-parts)
-  * [Connection Diagram](#Connection-Diagram)
-  * [ESC Configuration](#ESC-Configuration)
+	* [Drone Parts](#drone-parts)
+	* [Connection Diagram](#Connection-Diagram)
+
 * [Customize Firmware](#Customize-Firmware)
-  * [Set up BVM Environment](#Set-up-BVM-Environment)
-  * [Installation](#Installation)
-  * [USB Permissions](#USB-Permissions)
-  * [Radio URI](#Radio-URI)
-  * [Firmware Modification](#Firmware-Modification)
-    * [BigQuad Driver](#BigQuad-Driver)
-    * [Kbuild & Config](#Kbuild-&-Config)
-  * [Flashing Firmware](#Flashing-Firmware)
+	* [Set up BVM Environment](#Set-up-BVM-Environment)
+	* [Installation](#Installation)
+	* [USB Permissions](#USB-Permissions)
+	* [Radio URI](#Radio-URI)
+	* [Firmware Modification](#Firmware-Modification)
+		* [BigQuad Driver](#BigQuad-Driver)
+		* [Kbuild & Config](#Kbuild-&-Config)
+	* [Flashing Firmware](#Flashing-Firmware)
+* [ESC Configuration](#ESC-Configuration)
 * [Test Flight](#Test-Flight)
 
 
@@ -46,10 +47,9 @@ The assembled prototype is shown in the Figure below.
 
 
 ## Customize Firmware
-Since the BigQuad deck is an early access product, we need to modify the Crazyflie firmware so as to enable some features. Firstly, we need to enable the BigQuad deck driver that is not enabled by default, and secondly, we need to modify the `bigquad.c` driver file in order to use the Python API.
+Since the BigQuad deck is an early access product, its driver is not enabled in the off-the-shelf firmware. This means that if we do not make custom changes to the firmware, the BigQuad deck will not be detected by Crazyflie when we mount it to the vanilla Crazyflie. Further, the `bigquad.c` driver file in the off-the-shelf firmware also needs to be modified as there is a weird function in `bigquad.c`, namely, `extRxInit()`, that overrides the `setpoint` command generated from the Python API with an external setpoint reader (this bug is discovered by *thefred* in [this thread](https://forum.bitcraze.io/viewtopic.php?t=3931)).
 
-To complete the above tasks, we need to use the `kbuild` tool to build and flash the firmware. According to [this GitHub discussion thread](https://github.com/orgs/bitcraze/discussions/269) and [this blog](https://www.bitcraze.io/2022/02/a-new-way-to-configure-the-crazyflie-firmware/), all firmware developments after the $2022-02$ release should be performed using the `kbuild` build tool, which seems to be only available in a Linux environment. A convenient way to use the `kbuild` tool is to install the `Bitcraze Virtual Machine` (BVM) environment. 
-
+To fulfill the above tasks, we need to use the `kbuild` tool to build and flash the firmware. As explained in [this thread](https://github.com/orgs/bitcraze/discussions/269), the relevant instructions given in the [Bolt and BQ deck - Workshop (Youtube Video)](https://youtu.be/xiWLhr-HpG8) and in the official [BigQuad Product Page](https://www.bitcraze.io/products/bigquad-deck/) are already outdated and creating a `config.mk` file will not work. According to [this blog](https://www.bitcraze.io/2022/02/a-new-way-to-configure-the-crazyflie-firmware/), all firmware developments after the `2022-02 release` should be performed using the `kbuild` build tool, which seems to be only available in a Linux environment. A convenient way to use the `kbuild` tool is to install the `Bitcraze Virtual Machine` (BVM) environment. 
 
 ### Set up BVM Environment
 
