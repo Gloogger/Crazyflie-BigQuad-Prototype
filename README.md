@@ -41,6 +41,12 @@ Items used to assemble the prototype drone is given in the table below.
 | Propellers      | DJI Phantom Series 9450 Self-Locking Propellers             |
 
 #### Side Note on Lipo Battery
+Lipo batteries have cell configurations in the form of *XSYP* where *X* and *Y* are integers, *S* stands for *Series* and *P* stands for *Parallel*. The voltage of a LiPo battery can be determined by counting the number of cells connected in series in the battery, which can be identified by the number *X*. For example, since each standard LiPo cell is rated at $3.7$ V, a *4S* LiPo battery has 4 cells connected in series and the its battery voltage can be found as $3.7 \, \text{V} \times 4 = 14.8$ V. The capacity of a Lipo batery can be determined by counting the number of cells connected in parallel in the battery, which can be identified by the number *Y*. Hence, a Lipo battery with the cell configuration *6S1P* has 6 cells in series and **no** cells in parallel.
+
+General notes on using the Lipo battery:
+* A fully charged cell should have **4.2** V. Charge the battery to this voltage before each flight;
+* For long term storage, charge or discharge the battery so that each cell is around **3.8** V;
+* No cell should be discharged below **3.5** V for both safety and performance consideration. Some kind of battery monitor (such as a voltage tester that reads the voltages of each cell and beeps when the voltage of any of these cells drops to 3.5 V) should be installed during the flight.
 
 ### Connection Diagram
 Following the basic connection diagram given in the [BigQuad Product Page](https://www.bitcraze.io/products/bigquad-deck/), the ESCs (Electronic Speed Controllers), the BigQuad deck, and the motors are connected as shown below.
