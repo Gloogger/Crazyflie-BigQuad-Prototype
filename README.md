@@ -1,9 +1,11 @@
 # Crazyflie-BigQuad-Prototype
-This repository documents the development of a prototype quadcopter expanded from a Crazyflie 2.1 through the BigQuad expansion deck. The Crazyflie firmware used for development is [version 2023.02](https://github.com/bitcraze/crazyflie-firmware/releases/tag/2023.02).
+This repository documents the development of a prototype quadcopter expanded from a vanilla Crazyflie 2.1 through [the BigQuad deck](https://www.bitcraze.io/products/bigquad-deck/). The Crazyflie firmware used for development is the [2023.02 release](https://github.com/bitcraze/crazyflie-firmware/releases/tag/2023.02). An additional [motion capture marker deck](https://www.bitcraze.io/products/motion-capture-marker-deck/) is employed so that the prototype drone can obtain its own pose via the Motive + Optitrack system.
+
 
 ## Table of Contents
 * [Physical Construction](#physical-construction)
 	* [Drone Parts](#drone-parts)
+		* [Side Note on Lipo Battery](#Side-Note-on-Lipo-Battery)
 	* [Connection Diagram](#Connection-Diagram)
 
 * [Customize Firmware](#Customize-Firmware)
@@ -35,7 +37,10 @@ Items used to assemble the prototype drone is given in the table below.
 | ESC             | Hobbywing ESC X-Rotor Series H-King 20A 3-4S Lipo (No BEC)  |  
 | Flight Control  | Crazyflie 2.1 + BigQuad deck                                |
 | Battery         | HobbyLine 4S1P 100C 1500mAh Lipo Battery                    |
+| Battery Monitor | HotRC BX100 Battery Voltage Tester 1-8S LiPO                |
 | Propellers      | DJI Phantom Series 9450 Self-Locking Propellers             |
+
+#### Side Note on Lipo Battery
 
 ### Connection Diagram
 Following the basic connection diagram given in the [BigQuad Product Page](https://www.bitcraze.io/products/bigquad-deck/), the ESCs (Electronic Speed Controllers), the BigQuad deck, and the motors are connected as shown below.
